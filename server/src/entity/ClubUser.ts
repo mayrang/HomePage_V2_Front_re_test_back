@@ -3,6 +3,9 @@ import { User } from "./User";
 
 @Entity("clubusers")
 export class ClubUser extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  clubUserId: number;
+
   @Column()
   userId: number;
 
@@ -16,7 +19,7 @@ export class ClubUser extends BaseEntity {
   @Column()
   blog: string;
 
-  @Column()
+  @Column({ unique: true })
   studentId: number;
 
   @Column()
