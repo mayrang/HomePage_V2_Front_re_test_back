@@ -28,7 +28,7 @@ export class Post extends BaseEntity {
   @CreateDateColumn()
   postTime: Date;
 
-  @Column()
+  @Column({ nullable: true })
   file: string;
 
   @Column({ nullable: true })

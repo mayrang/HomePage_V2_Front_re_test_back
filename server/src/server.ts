@@ -6,35 +6,35 @@ import cookieParser from "cookie-parser";
 
 import { AppDataSource } from "./data-source";
 
+import signupRoutes from "./routes/sign-up";
+import postRoutes from "./routes/post";
+
 const app = express();
 
 dotenv.config();
 
-
-app.use(cors({
+app.use(
+  cors({
     origin: ["http://localhost:3000"],
-    credentials: true
-}));
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(cookieParser());
 
-
-
-app.get("/", (_, res) => res.send("back server"));
-
-
-
+app.use("/api/sign-up", signupRoutes);
+app.use("/api/post", postRoutes);
 
 let port = 4000;
 
 app.listen(port, async () => {
-    console.log(`Server running ${port} Port`);
-    AppDataSource.initialize()
+  console.log(`Server running ${port} Port`);
+  AppDataSource.initialize()
     .then(() => {
-        console.log("database init!");
+      console.log("database init!");
     })
     .catch((err) => {
-        console.log(err);
-    })
-})
+      console.log(err);
+    });
+});
