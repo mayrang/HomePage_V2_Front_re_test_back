@@ -14,7 +14,7 @@ router.post("/", async (req: Request, res: Response) => {
     if (!checkUser) return res.status(400).json({ error: "해당 유저가 존재하지 않습니다." });
     const matchPassword = await bcrypt.compare(password, checkUser.password);
     if (!matchPassword) return res.status(401).json({ password: "비밀번호가 틀렸습니다." });
-    const token = jwt.sign({ userId }, process.env.JWT_SECRET_KEY);
+    const token = jwt.sign({ loginId: userId }, process.env.JWT_SECRET_KEY);
     res.set("Set-Cookie", cookie.serialize("token", token, { httpOnly: true, maxAge: 60 * 30, path: "/" }));
 
     res.status(200).json({ token });
