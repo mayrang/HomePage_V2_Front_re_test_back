@@ -8,6 +8,7 @@ import { AppDataSource } from "./data-source";
 
 import signupRoutes from "./routes/sign-up";
 import postRoutes from "./routes/post";
+import projectRoutes from "./routes/project";
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use(cookieParser());
 
 app.use("/api/sign-up", signupRoutes);
 app.use("/api/post", postRoutes);
+app.use("/api/project", projectRoutes);
 
 let port = 4000;
 
