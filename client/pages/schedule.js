@@ -72,7 +72,7 @@ const SchedulePage = () => {
           </div>
           {/* 요일 ui를 표시하는 부분 */}
           <div className="w-full bg-white  px-3">
-            <div className="flex items-center w-full rep text-center">
+            <div className="flex items-center w-full  text-center">
               <div className="border flex-1 border-black bg-gray-200 grow">SUN</div>
               <div className="border flex-1 border-black bg-gray-200 grow">MON</div>
               <div className="border flex-1 border-black bg-gray-200 grow">TUE</div>
@@ -83,14 +83,14 @@ const SchedulePage = () => {
             </div>
             {/* calendarData 배열을 주 단위로 map */}
             {schedule?.map((week, idx) => (
-              <div key={idx} className="flex items-center w-full h-24 md:h-32">
+              <div key={idx} className="flex  items-stretch h-full min-h-[8rem]">
                 {/* 각 week를 date단위로 map */}
                 {week.map((date, idx) => (
                   // 각 date ui 부분 content나 username이 길어질시 ...으로 자르도록 했음
                   <div
                     key={idx}
                     // onClick={() => clickPostsModal(date)}
-                    className="relative w-full h-full flex-1 border overflow-hidden overflow-ellipsis  whitespace-nowrap"
+                    className=" w-full h-auto flex-1 border overflow-hidden overflow-ellipsis  whitespace-nowrap"
                   >
                     {/* 날짜 표시하는 부분(공휴일이거나 휴일일시 text-red, 해당 날짜가 오늘일시 bg에 blue 추가) */}
                     <small

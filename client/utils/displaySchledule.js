@@ -101,16 +101,17 @@ export const displaySchedule = (year, month, holidays, posts) => {
         return {
           ...post,
           index: idx,
+          start: true,
         };
       });
     } else {
       for (const post of checkPost) {
         const findIndex = prevDayPost.find((prevPost) => (prevPost.scheduleId = post.scheduleId));
         if (findIndex) {
-          indexingPost.push({ ...post, index: findIndex.index });
+          indexingPost.push({ ...post, index: findIndex.index, start: dayjs(post.date).get("date") === i });
         } else {
           const index = indexingPost[-1]?.index ? indexingPost[-1].index + 1 : 0;
-          indexingPost.push({ ...post, index });
+          indexingPost.push({ ...post, index, start: dayjs(post.date).get("date") === i });
         }
       }
     }

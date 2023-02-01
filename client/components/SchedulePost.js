@@ -6,11 +6,10 @@ const SchedulePost = ({ post }) => {
   return (
     <div
       className={cls(
-        "w-full mt-2 bg-blue-200 text-[10px] md:text-xs  overflow-hidden overflow-ellipsis whitespace-nowrap",
-        { "rounded-lg": !post.multiple }
+        "w-full my-2 h-6 bg-blue-200 text-[10px] md:text-xs  overflow-hidden overflow-ellipsis whitespace-nowrap"
       )}
     >
-      {post.content}
+      {post.start ? post.content : " "}
     </div>
   );
 };
