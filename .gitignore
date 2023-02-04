@@ -35,3 +35,4 @@ client/.vercel
 /server/.env.development
 
 server/node_modules
+/client/.env.development

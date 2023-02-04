@@ -6,8 +6,9 @@ const SchedulePost = ({ post }) => {
   return (
     <div
       className={cls(
-        "w-full my-2 h-6 bg-blue-200 text-[10px] md:text-xs  overflow-hidden overflow-ellipsis whitespace-nowrap"
+        `absolute w-full h-6  bg-blue-200 text-[10px] md:text-xs  overflow-hidden overflow-ellipsis whitespace-nowrap`
       )}
+      style={{ top: `${post.index * 2 + 1.5}rem` }}
     >
       {post.start ? post.content : " "}
     </div>
