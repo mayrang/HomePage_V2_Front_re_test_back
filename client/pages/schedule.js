@@ -1,10 +1,12 @@
 import React from "react";
 import SchedulePost from "../components/SchedulePost";
-import { displaySchedule, posts } from "../utils/DisplaySchledule";
+import displayCalendar, { schedulePosts } from "../utils/displayCalendar";
 import cls from "classnames";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import axios from "axios";
+import CalendarYearMonth from "../components/CalendarYearMonth";
+import CalendarDay from "./../components/CalendarDay";
 
 const SchedulePage = ({ holidays }) => {
   const router = useRouter();
@@ -13,86 +15,27 @@ const SchedulePage = ({ holidays }) => {
   const calendarYear = year || dayjs().format("YYYY");
   const calendarMonth = month || dayjs().format("MM");
 
-  const schedule = displaySchedule(parseInt(calendarYear), parseInt(calendarMonth), holidays, posts);
+  const schedule = displayCalendar(parseInt(calendarYear), parseInt(calendarMonth), holidays, schedulePosts);
   const weekMaxIndex = schedule.map((week) => {
     return week.reduce((prev, value) => {
       return prev.maxIndex >= value.maxIndex ? prev : value;
     }).maxIndex;
   });
-  // 다음 달
-  const clickNext = () => {
-    if (parseInt(month) === 12) {
-      router.push({
-        pathname: "/schedule",
-        query: {
-          year: (parseInt(calendarYear) + 1).toString(),
-          month: "1",
-        },
-      });
-    } else {
-      router.push({
-        pathname: "/schedule",
-        query: {
-          year: calendarYear.toString(),
-          month: (parseInt(calendarMonth) + 1).toString(),
-        },
-      });
-    }
-  };
 
-  // 이전 달
-  const clickPrev = () => {
-    if (parseInt(month) === 1) {
-      router.push({
-        pathname: "/schedule",
-        query: {
-          year: (parseInt(calendarYear) - 1).toString(),
-          month: "12",
-        },
-      });
-    } else {
-      router.push({
-        pathname: "/schedule",
-        query: {
-          year: calendarYear.toString(),
-          month: (parseInt(calendarMonth) - 1).toString(),
-        },
-      });
-    }
-  };
   return (
     <>
-      <div className="w-full ">
-        <div className="flex-col   h-screen items-center  justify-center">
-          {/* year, month를 표시하는 부분 */}
-          <div className="flex items-center justify-between w-full  p-3 ">
-            <div onClick={clickPrev} className="text-2xl">
-              {"<"}
-            </div>
-            <div className="text-2xl">
-              {calendarYear}년 {calendarMonth}월
-            </div>
-            <div onClick={clickNext} className="text-2xl">
-              {">"}
-            </div>
-          </div>
-          {/* 요일 ui를 표시하는 부분 */}
+      <div className="w-full h-screen">
+        <div className="flex flex-col   h-screen items-center  justify-center">
+          <CalendarYearMonth type={"schedule"} calendarMonth={calendarMonth} calendarYear={calendarYear} />
+
           <div className="w-full bg-white  px-3">
-            <div className="flex items-center w-full  text-center">
-              <div className="border flex-1 border-black bg-gray-200 grow">SUN</div>
-              <div className="border flex-1 border-black bg-gray-200 grow">MON</div>
-              <div className="border flex-1 border-black bg-gray-200 grow">TUE</div>
-              <div className="border flex-1 border-black bg-gray-200 grow">WED</div>
-              <div className="border flex-1 border-black bg-gray-200 grow">THU</div>
-              <div className="border flex-1 border-black bg-gray-200 grow">FRI</div>
-              <div className="border flex-1 border-black bg-gray-200 grow">SAT</div>
-            </div>
+            <CalendarDay />
             {/* calendarData 배열을 주 단위로 map */}
             {schedule?.map((week, idx) => (
               <div
                 key={idx}
                 className="flex  items-stretch w-full "
-                style={{ height: `${weekMaxIndex[idx] >= 0 ? 20 * weekMaxIndex[idx] + 120 : 90}px` }}
+                style={{ height: `${weekMaxIndex[idx] >= 0 ? 25 * weekMaxIndex[idx] + 90 : 90}px` }}
               >
                 {/* 각 week를 date단위로 map */}
                 {week.map((date, idx) => (

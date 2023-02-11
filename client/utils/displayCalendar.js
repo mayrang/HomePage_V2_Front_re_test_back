@@ -5,7 +5,7 @@ import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 dayjs.extend(isSameOrAfter);
 dayjs.extend(isSameOrBefore);
 
-export const posts = [
+export const schedulePosts = [
   {
     scheduleId: 1,
     content: "일정1",
@@ -50,7 +50,52 @@ export const posts = [
   },
 ];
 
-export const displaySchedule = (year, month, holidays, posts) => {
+export const reservationPosts = [
+  {
+    reservationId: 1,
+    content: "일정1",
+    date: dayjs("2023-02-03 16:00:00", "YYYY-MM-DD HH:mm:ss"),
+    time: 10800000,
+  },
+  {
+    reservationId: 2,
+    content: "일정2",
+    date: dayjs("2023-02-04 10:00:00", "YYYY-MM-DD HH:mm:ss"),
+    time: 7200000,
+  },
+  {
+    reservationId: 3,
+    content: "일정3",
+    date: dayjs("2023-01-03 20:00:00", "YYYY-MM-DD HH:mm:ss"),
+    time: 3600000,
+  },
+  {
+    reservationId: 4,
+    content: "일정4",
+    date: dayjs("2023-02-06 11:00:00", "YYYY-MM-DD HH:mm:ss"),
+    time: 7200000,
+  },
+  {
+    reservationId: 5,
+    content: "일정5",
+    date: dayjs("2023-02-09 16:00:00", "YYYY-MM-DD HH:mm:ss"),
+    time: 3600000,
+  },
+  {
+    reservationId: 6,
+    content: "일정6",
+    date: dayjs("2023-02-04 17:00:00", "YYYY-MM-DD HH:mm:ss"),
+    time: 10800000,
+  },
+  {
+    reservationId: 7,
+    content: "일정7",
+    date: dayjs("2023-02-13 08:00:00", "YYYY-MM-DD HH:mm:ss"),
+    time: 3600000,
+  },
+];
+
+const displayCalendar = (year, month, holidays, posts) => {
   //월 배열
   let monthArray = [];
   //주 배열
@@ -80,7 +125,7 @@ export const displaySchedule = (year, month, holidays, posts) => {
   for (let i = 1; i < nextDate + 1; i++) {
     let indexingPost = [];
     let maxIndex = 0;
-    console.log(i, indexingPost);
+
     dayFormat =
       year.toString() +
       (parseInt(month) < 10 ? "0" + month.toString() : month.toString()) +
@@ -90,8 +135,8 @@ export const displaySchedule = (year, month, holidays, posts) => {
     // });
     const checkPost = posts.filter((post) => {
       return (
-        dayjs(dayFormat, "YYYYMMDD").isSameOrAfter(dayjs(post.date)) &&
-        dayjs(dayFormat, "YYYYMMDD").isSameOrBefore(dayjs(post.date).add(post.time, "millisecond"))
+        dayjs(dayFormat, "YYYYMMDD").isSameOrAfter(dayjs(post.date), "day") &&
+        dayjs(dayFormat, "YYYYMMDD").isSameOrBefore(dayjs(post.date).add(post.time, "millisecond"), "day")
       );
     });
 
@@ -125,7 +170,7 @@ export const displaySchedule = (year, month, holidays, posts) => {
       maxIndex = -1;
     }
     const holiday = holidays?.find((holiday) => holiday.locdate?.toString() === dayFormat);
-    // console.log("holiday", holiday, dayFormat)
+
     if (holiday) {
       weekArray.push({ date: i, dayFormat, posts: [...indexingPost], holiday: holiday, maxIndex });
     } else {
@@ -156,3 +201,5 @@ export const displaySchedule = (year, month, holidays, posts) => {
   console.log(monthArray);
   return monthArray;
 };
+
+export default displayCalendar;
