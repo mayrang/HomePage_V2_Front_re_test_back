@@ -77,7 +77,7 @@ const SchedulePage = ({ holidays }) => {
   );
 };
 
-export const getServerSideProps = async ({ query, req }) => {
+export const getServerSideProps = async ({ query }) => {
   try {
     const { year, month } = query;
 
