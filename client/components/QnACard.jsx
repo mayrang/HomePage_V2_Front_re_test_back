@@ -5,7 +5,7 @@ import { FaComment } from "react-icons/fa";
 export default function QnACard({ post }) {
   console.log(post);
   return (
-    <li className="max-w-[655px] border-b border-b-zinc-500">
+    <li className="max-w-[655px] border-b border-b-zinc-500 hover:bg-gray-100">
       <a className="cursor-pointer ">
         <div className="flex md:py-[18px] md:px-[16px] py-[18px] border-b-zinc-300">
           <div className="flex-auto w-full">

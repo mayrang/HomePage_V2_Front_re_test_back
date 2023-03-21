@@ -3,12 +3,15 @@
 @tailwind utilities; 
 /* 위에꺼는 오류드는거 오류아님 거슬리면 vscode 확장자 중에 오류 없애주는거 있다고 함 */
 
+
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  /* font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif, 'Nanum Gothic'; */
+    font-family: 'Nanum Gothic', sans-serif;
 }
 
 a {
