@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 export default function NoticeList() {
   const router = useRouter();
   const { nowPage } = router.query;
+  const currentPage = nowPage ? parseInt(nowPage) : 1;
   const {
     data: notices,
     isLoading,
@@ -17,7 +18,7 @@ export default function NoticeList() {
     console.log(result);
     return result.data.items;
   });
-  const { page, pageData } = usePagination(notices, nowPage ? parseInt(nowPage) : 1);
+  const { page, pageData } = usePagination(notices, currentPage);
   console.log(page, pageData);
   return (
     <div className="p-3 flex-shrink basis-0 grow max-w-[1130px]">
